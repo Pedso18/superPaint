@@ -1,27 +1,33 @@
-/* .App {
-	flex: 1;
-	text-align: center;
-	align-content: center;
-	justify-content: center;
-	align-items: center;
-} */
+html {
+	--amountOfChildrenX: null;
+	--amountOfChildrenY: null;
+	--sizeOfPixel: null;
+}
 
 .pixelBox {
 	position: relative;
 
 	display: inline-block;
 
-	width: 10px;
-	height: 10px;
+	flex: 1;
+
+	width: var(--sizeOfPixel);
+	height: var(--sizeOfPixel);
 
 	box-shadow: 0px 0px 0px 1px #000000;
 
 	margin: 1px;
 	z-index: 1;
+
+	user-select: none;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
 }
 .pixelBox:hover {
-	width: 12px;
-	height: 12px;
+	width: calc(var(--sizeOfPixel) + 2px);
+	height: calc(var(--sizeOfPixel) + 2px);
 
 	margin: 0px;
 
@@ -31,11 +37,17 @@
 
 .canvas {
 	height: 100vh;
-	width: 80vw;
+	width: 70vw;
 	margin: auto;
-	flex: 1;
-	flex-direction: row;
-	flex-wrap: wrap;
-	background-color: yellowgreen;
+	background-color: rgb(26, 26, 26);
 	line-height: 0px;
+}
+
+.pixelJacket {
+	width: fit-content;
+	height: fit-content;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
 }

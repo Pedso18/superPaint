@@ -5,9 +5,13 @@ export default function PixelBox(props) {
 
 	return (
 		<div
-			onClick={() => {
-				console.log("was clicked!");
+			onMouseDown={() => {
 				setColor(color === "#fff" ? "#000" : "#fff");
+			}}
+			onMouseEnter={() => {
+				if (props.isMousePressed.current === true) {
+					setColor(color === "#fff" ? "#000" : "#fff");
+				}
 			}}
 			className='pixelBox'
 			style={{ backgroundColor: color }}></div>
