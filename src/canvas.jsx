@@ -127,33 +127,50 @@ export default function Canvas(props) {
 			const x = e.clientX - rect.left - pixelSize;
 			const y = e.clientY - rect.top - pixelSize;
 
+			console.log(
+				(x + pixelSize) / pixelSize - (((x + pixelSize) / pixelSize) % 1),
+				(y + pixelSize) / pixelSize - (((y + pixelSize) / pixelSize) % 1)
+			);
+
+			let arrX = (x + pixelSize) / pixelSize - (((x + pixelSize) / pixelSize) % 1);
+			let arrY = (y + pixelSize) / pixelSize - (((y + pixelSize) / pixelSize) % 1);
+
 			ctx.fillStyle = "white";
 			ctx.beginPath();
-			ctx.rect(0, 0, canvas.width, canvas.height);
+			ctx.rect(arrX * pixelSize, arrY * pixelSize, pixelSize * 3, pixelSize * 3);
 			ctx.fill();
 			ctx.closePath();
 			ctx.stokeStyle = "black";
 			ctx.strokeRect(2, 2, pixelSize * gridSize[0], pixelSize * gridSize[1]);
 
-			console.log("started timing");
-			console.time("a");
-			for (let i = 0; i < gridSize[1]; i++) {
-				for (let a = 0; a < gridSize[0]; a++) {
-					ctx.fillStyle = pixelGrid[i][a].color;
+			for (let a = arrX - 2; a < arrX + 3; a++) {
+				for (let i = arrY - 2; i < arrY + 3; i++) {
+					if (pixelGrid[i] && pixelGrid[i][a]) {
+						ctx.fillStyle = pixelGrid[i][a].color;
 
-					if (
-						x > pixelSize * (a - 1) &&
-						x < pixelSize * a &&
-						y > pixelSize * (i - 1) &&
-						y < pixelSize * i
-					) {
-						if (isMousePressed.current) {
-							console.log(props.selectedColor.current);
-							pixelGrid[i][a].color = props.selectedColor.current;
-						}
+						if (
+							x > pixelSize * (a - 1) &&
+							x < pixelSize * a &&
+							y > pixelSize * (i - 1) &&
+							y < pixelSize * i
+						) {
+							if (isMousePressed.current) {
+								console.log(props.selectedColor.current);
+								pixelGrid[i][a].color = props.selectedColor.current;
+							}
 
-						if (props.showGrid === true) {
-							if (ctx.fillStyle != "#fff") {
+							if (props.showGrid === true) {
+								if (ctx.fillStyle != "#fff") {
+									ctx.beginPath();
+									ctx.rect(
+										pixelSize * a - 1 + 2,
+										pixelSize * i - 1 + 2,
+										pixelSize + 2,
+										pixelSize + 2
+									);
+									ctx.fill();
+									ctx.closePath();
+								}
 								ctx.beginPath();
 								ctx.rect(
 									pixelSize * a - 1 + 2,
@@ -161,61 +178,51 @@ export default function Canvas(props) {
 									pixelSize + 2,
 									pixelSize + 2
 								);
-								ctx.fill();
+								ctx.stroke();
 								ctx.closePath();
+							} else {
+								if (ctx.fillStyle != "#fff") {
+									ctx.beginPath();
+									ctx.rect(
+										pixelSize * a - 1 + 2,
+										pixelSize * i - 1 + 2,
+										pixelSize + 2,
+										pixelSize + 2
+									);
+									ctx.fill();
+									ctx.closePath();
+								}
 							}
-							ctx.beginPath();
-							ctx.rect(
-								pixelSize * a - 1 + 2,
-								pixelSize * i - 1 + 2,
-								pixelSize + 2,
-								pixelSize + 2
-							);
-							ctx.stroke();
-							ctx.closePath();
 						} else {
-							if (ctx.fillStyle != "#fff") {
-								ctx.beginPath();
-								ctx.rect(
-									pixelSize * a - 1 + 2,
-									pixelSize * i - 1 + 2,
-									pixelSize + 2,
-									pixelSize + 2
-								);
-								ctx.fill();
-								ctx.closePath();
-							}
-						}
-					} else {
-						if (props.showGrid === true) {
-							if (ctx.fillStyle != "#fff") {
-								ctx.beginPath();
-								ctx.rect(
-									pixelSize * a - 1 + 2,
-									pixelSize * i - 1 + 2,
-									pixelSize + 2,
-									pixelSize + 2
-								);
-								ctx.fill();
-								ctx.closePath();
-							}
+							if (props.showGrid === true) {
+								if (ctx.fillStyle != "#fff") {
+									ctx.beginPath();
+									ctx.rect(
+										pixelSize * a - 1 + 2,
+										pixelSize * i - 1 + 2,
+										pixelSize + 2,
+										pixelSize + 2
+									);
+									ctx.fill();
+									ctx.closePath();
+								}
 
-							ctx.beginPath();
-							ctx.rect(pixelSize * a + 2, pixelSize * i + 2, pixelSize, pixelSize);
-							ctx.stroke();
-							ctx.closePath();
-						} else {
-							if (ctx.fillStyle != "#fff") {
 								ctx.beginPath();
 								ctx.rect(pixelSize * a + 2, pixelSize * i + 2, pixelSize, pixelSize);
-								ctx.fill();
+								ctx.stroke();
 								ctx.closePath();
+							} else {
+								if (ctx.fillStyle != "#fff") {
+									ctx.beginPath();
+									ctx.rect(pixelSize * a + 2, pixelSize * i + 2, pixelSize, pixelSize);
+									ctx.fill();
+									ctx.closePath();
+								}
 							}
 						}
 					}
 				}
 			}
-			console.timeEnd("a");
 		};
 
 		for (let i = 0; i < gridSize[1]; i++) {
@@ -229,4 +236,85 @@ export default function Canvas(props) {
 	}, [showGrid, pixelGrid]);
 
 	return <canvas className='canvas' ref={canvasRef}></canvas>;
+
+	// function reRenderAroundMouse(arrX, arrY) {
+	// 	for (let i = arrX - 2; i < arrX + 2; i++) {
+	// 		for (let a = arrY - 2; a < arrY + 2; a++) {
+	// 			ctx.fillStyle = pixelGrid[i][a].color;
+
+	// 			if (
+	// 				x > pixelSize * (a - 1) &&
+	// 				x < pixelSize * a &&
+	// 				y > pixelSize * (i - 1) &&
+	// 				y < pixelSize * i
+	// 			) {
+	// 				if (isMousePressed.current) {
+	// 					console.log(props.selectedColor.current);
+	// 					pixelGrid[i][a].color = props.selectedColor.current;
+	// 				}
+
+	// 				if (props.showGrid === true) {
+	// 					if (ctx.fillStyle != "#fff") {
+	// 						ctx.beginPath();
+	// 						ctx.rect(
+	// 							pixelSize * a - 1 + 2,
+	// 							pixelSize * i - 1 + 2,
+	// 							pixelSize + 2,
+	// 							pixelSize + 2
+	// 						);
+	// 						ctx.fill();
+	// 						ctx.closePath();
+	// 					}
+	// 					ctx.beginPath();
+	// 					ctx.rect(
+	// 						pixelSize * a - 1 + 2,
+	// 						pixelSize * i - 1 + 2,
+	// 						pixelSize + 2,
+	// 						pixelSize + 2
+	// 					);
+	// 					ctx.stroke();
+	// 					ctx.closePath();
+	// 				} else {
+	// 					if (ctx.fillStyle != "#fff") {
+	// 						ctx.beginPath();
+	// 						ctx.rect(
+	// 							pixelSize * a - 1 + 2,
+	// 							pixelSize * i - 1 + 2,
+	// 							pixelSize + 2,
+	// 							pixelSize + 2
+	// 						);
+	// 						ctx.fill();
+	// 						ctx.closePath();
+	// 					}
+	// 				}
+	// 			} else {
+	// 				if (props.showGrid === true) {
+	// 					if (ctx.fillStyle != "#fff") {
+	// 						ctx.beginPath();
+	// 						ctx.rect(
+	// 							pixelSize * a - 1 + 2,
+	// 							pixelSize * i - 1 + 2,
+	// 							pixelSize + 2,
+	// 							pixelSize + 2
+	// 						);
+	// 						ctx.fill();
+	// 						ctx.closePath();
+	// 					}
+
+	// 					ctx.beginPath();
+	// 					ctx.rect(pixelSize * a + 2, pixelSize * i + 2, pixelSize, pixelSize);
+	// 					ctx.stroke();
+	// 					ctx.closePath();
+	// 				} else {
+	// 					if (ctx.fillStyle != "#fff") {
+	// 						ctx.beginPath();
+	// 						ctx.rect(pixelSize * a + 2, pixelSize * i + 2, pixelSize, pixelSize);
+	// 						ctx.fill();
+	// 						ctx.closePath();
+	// 					}
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// }
 }
