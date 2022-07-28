@@ -77,6 +77,7 @@ export default function Canvas(props) {
 							fastStrokeRect(pixelSize * a + 2, pixelSize * i + 2, pixelSize, pixelSize);
 						} else {
 							console.log("no grid");
+
 							fastFillRect(pixelSize * a + 2, pixelSize * i + 2, pixelSize, pixelSize);
 						}
 					}
