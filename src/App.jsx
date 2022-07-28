@@ -2,21 +2,14 @@ import { useState, useRef, useEffect } from "react";
 import Canvas from "./canvas";
 import "./App.css";
 import { RgbaColorPicker } from "react-colorful";
+import ColorCell from "./colorCell";
 
 function App() {
 	const [pixelGrid, setPixelGrid] = useState([]);
 	const [gridSize, setGridSize] = useState([32, 32]);
 	const [showGrid, setShowGrid] = useState(true);
 	const isMousePressed = useRef(false);
-	const colorInput = useRef();
 	const selectedColor = useRef({ r: 255, g: 255, b: 255, a: 1 });
-
-	useEffect(() => {
-		colorInput.current.addEventListener("input", () => {
-			selectedColor.current = colorInput.current.value;
-			console.log("color is now:", selectedColor.current);
-		});
-	}, []);
 
 	return (
 		<div
@@ -40,13 +33,31 @@ function App() {
 				gridSizeState={[gridSize, setGridSize]}
 				selectedColor={selectedColor}
 			/>
-			<input ref={colorInput} type='color' />
-			<RgbaColorPicker
-				onChange={e => {
-					console.log(e);
-					selectedColor.current = e;
-				}}
-			/>
+			<div className='rightPanel'>
+				<RgbaColorPicker
+					className='colorPicker'
+					tabIndex={-1}
+					onChange={e => {
+						console.log(e);
+						selectedColor.current = e;
+					}}
+				/>
+
+				<div className='colorDiv'>
+					<ColorCell />
+					<ColorCell />
+					<ColorCell />
+					<ColorCell />
+					<ColorCell />
+					<ColorCell />
+					<ColorCell />
+					<ColorCell />
+					<ColorCell />
+					<ColorCell />
+					<ColorCell />
+					<ColorCell />
+				</div>
+			</div>
 		</div>
 	);
 }

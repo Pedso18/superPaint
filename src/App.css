@@ -1,6 +1,6 @@
 html {
 	overflow: hidden;
-	background-color: rgb(46, 46, 46);
+	background-color: #4d4d57;
 }
 
 .canvas {
@@ -9,4 +9,74 @@ html {
 	top: 50%;
 	transform: translate(-50%, -50%);
 	background-color: white;
+}
+
+.rightPanel {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	width: 20%;
+	max-width: 300px;
+	height: 100%;
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	background-color: #393941;
+	-webkit-box-shadow: -2px 3px 14px 5px rgba(0, 0, 0, 0.84);
+	box-shadow: -2px 3px 14px 5px rgba(0, 0, 0, 0.84);
+	flex-direction: column;
+}
+
+.colorDiv {
+	background-color: #33333a;
+	border-radius: 12px;
+	width: 230px;
+	height: 250px;
+	flex-direction: row;
+	display: flex;
+	flex-wrap: wrap;
+	padding: 5px;
+	box-sizing: border-box;
+}
+
+.colorCell {
+	background-color: aliceblue;
+	border-radius: 12px;
+	width: 30px;
+	height: 26px;
+	margin-left: 4px;
+	margin-right: 4px;
+	margin-top: 7px;
+	margin-bottom: 7px;
+}
+
+/* Custom layout */
+.react-colorful {
+	margin-bottom: 10%;
+	padding: 16px;
+	border-radius: 12px;
+	background: #33333a;
+	width: 70%;
+}
+
+.react-colorful__saturation {
+	margin: 15px 0;
+	border-radius: 5px;
+	border-bottom: none;
+}
+
+.react-colorful__hue {
+	order: -1;
+}
+
+.react-colorful__hue,
+.react-colorful__alpha {
+	height: 14px;
+	border-radius: 5px;
+}
+
+.react-colorful__hue-pointer,
+.react-colorful__alpha-pointer {
+	width: 10px;
+	height: 10px;
 }
