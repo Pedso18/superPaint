@@ -1,6 +1,12 @@
+html {
+	overflow: hidden;
+	background-color: rgb(46, 46, 46);
+}
+
 .canvas {
 	position: absolute;
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
+	background-color: white;
 }

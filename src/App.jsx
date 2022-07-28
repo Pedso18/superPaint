@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import Canvas from "./canvas";
 import "./App.css";
+import { RgbaColorPicker } from "react-colorful";
 
 function App() {
 	const [pixelGrid, setPixelGrid] = useState([]);
@@ -8,7 +9,7 @@ function App() {
 	const [showGrid, setShowGrid] = useState(true);
 	const isMousePressed = useRef(false);
 	const colorInput = useRef();
-	const selectedColor = useRef("#000");
+	const selectedColor = useRef({ r: 255, g: 255, b: 255, a: 1 });
 
 	useEffect(() => {
 		colorInput.current.addEventListener("input", () => {
@@ -22,11 +23,9 @@ function App() {
 			tabIndex={0}
 			className='App'
 			onMouseDown={() => {
-				console.log("pressed = true");
 				isMousePressed.current = true;
 			}}
 			onMouseUp={() => {
-				console.log("pressed = false");
 				isMousePressed.current = false;
 			}}
 			onKeyUp={e => {
@@ -42,6 +41,12 @@ function App() {
 				selectedColor={selectedColor}
 			/>
 			<input ref={colorInput} type='color' />
+			<RgbaColorPicker
+				onChange={e => {
+					console.log(e);
+					selectedColor.current = e;
+				}}
+			/>
 		</div>
 	);
 }
