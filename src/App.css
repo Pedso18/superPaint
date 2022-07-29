@@ -35,19 +35,38 @@ html {
 	flex-direction: row;
 	display: flex;
 	flex-wrap: wrap;
-	padding: 5px;
+	padding: 18px;
 	box-sizing: border-box;
 }
 
 .colorCell {
 	background-color: aliceblue;
-	border-radius: 12px;
-	width: 30px;
-	height: 26px;
-	margin-left: 4px;
-	margin-right: 4px;
-	margin-top: 7px;
-	margin-bottom: 7px;
+	border-radius: 6px;
+	width: 32px;
+	height: 24px;
+	border-color: #4d4d57;
+	border-width: 3px;
+	border-style: solid;
+	margin: 5px 5px 2px 5px;
+	overflow: visible;
+	transform: scale(1);
+}
+
+.colorCell:hover {
+	transform: scale(1.1);
+}
+
+.selectedColorCellRing {
+	position: absolute;
+	left: -3px;
+	top: -3px;
+	width: 36px;
+	height: 28px;
+	background-color: rgba(0, 0, 0, 0);
+	border-color: aliceblue;
+	border-width: 1px;
+	border-style: solid;
+	border-radius: 6px;
 }
 
 /* Custom layout */
