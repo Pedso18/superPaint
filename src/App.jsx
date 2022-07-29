@@ -53,146 +53,148 @@ function App() {
 				/>
 
 				<div className='colorDiv'>
-					<ColorCell
-						selectedColor={selectedColor}
-						stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
-						selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
-						colorCellIndex={0}
-						defaultColor={{ r: 255, g: 255, b: 255, a: 1 }}
-					/>
-					<ColorCell
-						stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
-						selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
-						colorCellIndex={1}
-						defaultColor={{ r: 252, g: 244, b: 0, a: 1 }}
-						selectedColor={selectedColor}
-					/>
-					<ColorCell
-						stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
-						selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
-						colorCellIndex={2}
-						defaultColor={{ r: 255, g: 100, b: 0, a: 1 }}
-						selectedColor={selectedColor}
-					/>
-					<ColorCell
-						stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
-						selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
-						colorCellIndex={3}
-						defaultColor={{ r: 221, g: 2, b: 2, a: 1 }}
-						selectedColor={selectedColor}
-					/>
-					<ColorCell
-						stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
-						selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
-						colorCellIndex={4}
-						defaultColor={{ r: 240, g: 2, b: 133, a: 1 }}
-						selectedColor={selectedColor}
-					/>
-					<ColorCell
-						stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
-						selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
-						colorCellIndex={5}
-						defaultColor={{ r: 70, g: 0, b: 165, a: 1 }}
-						selectedColor={selectedColor}
-					/>
-					<ColorCell
-						stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
-						selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
-						colorCellIndex={6}
-						defaultColor={{ r: 0, g: 0, b: 213, a: 1 }}
-						selectedColor={selectedColor}
-					/>
-					<ColorCell
-						stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
-						selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
-						colorCellIndex={7}
-						defaultColor={{ r: 0, g: 174, b: 233, a: 1 }}
-						selectedColor={selectedColor}
-					/>
-					<ColorCell
-						stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
-						selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
-						colorCellIndex={8}
-						defaultColor={{ r: 26, g: 185, b: 12, a: 1 }}
-						selectedColor={selectedColor}
-					/>
-					<ColorCell
-						stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
-						selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
-						colorCellIndex={9}
-						defaultColor={{ r: 0, g: 100, b: 7, a: 1 }}
-						selectedColor={selectedColor}
-					/>
-					<ColorCell
-						stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
-						selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
-						colorCellIndex={10}
-						defaultColor={{ r: 87, g: 40, b: 0, a: 1 }}
-						selectedColor={selectedColor}
-					/>
-					<ColorCell
-						stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
-						selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
-						colorCellIndex={11}
-						defaultColor={{ r: 145, g: 113, b: 53, a: 1 }}
-						selectedColor={selectedColor}
-					/>
-					<ColorCell
-						stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
-						selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
-						colorCellIndex={12}
-						defaultColor={{ r: 252, g: 244, b: 0, a: 1 }}
-						selectedColor={selectedColor}
-					/>
-					<ColorCell
-						stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
-						selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
-						colorCellIndex={13}
-						defaultColor={{ r: 252, g: 244, b: 0, a: 1 }}
-						selectedColor={selectedColor}
-					/>
-					<ColorCell
-						stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
-						selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
-						colorCellIndex={14}
-						defaultColor={{ r: 252, g: 244, b: 0, a: 1 }}
-						selectedColor={selectedColor}
-					/>
-					<ColorCell
-						stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
-						selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
-						colorCellIndex={15}
-						defaultColor={{ r: 255, g: 255, b: 255, a: 1 }}
-						selectedColor={selectedColor}
-					/>
-					<ColorCell
-						stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
-						selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
-						colorCellIndex={16}
-						defaultColor={{ r: 193, g: 193, b: 193, a: 1 }}
-						selectedColor={selectedColor}
-					/>
-					<ColorCell
-						stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
-						selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
-						colorCellIndex={17}
-						defaultColor={{ r: 129, g: 129, b: 129, a: 1 }}
-						selectedColor={selectedColor}
-					/>
-					<ColorCell
-						stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
-						selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
-						colorCellIndex={18}
-						defaultColor={{ r: 14, g: 14, b: 14, a: 1 }}
-						selectedColor={selectedColor}
-					/>
-					<ColorCell
-						stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
-						selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
-						colorCellIndex={19}
-						defaultColor={{ r: 0, g: 0, b: 0, a: 1 }}
-						selectedColor={selectedColor}
-					/>
+					<div className='makingColorsRound'>
+						<ColorCell
+							selectedColor={selectedColor}
+							stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
+							selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
+							colorCellIndex={0}
+							defaultColor={"#d1313d"}
+						/>
+						<ColorCell
+							stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
+							selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
+							colorCellIndex={1}
+							selectedColor={selectedColor}
+							defaultColor={"#e6625d"}
+						/>
+						<ColorCell
+							stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
+							selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
+							colorCellIndex={2}
+							selectedColor={selectedColor}
+							defaultColor={"#f9bf76"}
+						/>
+						<ColorCell
+							stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
+							selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
+							colorCellIndex={3}
+							selectedColor={selectedColor}
+							defaultColor={"#8eb1c5"}
+						/>
+						<ColorCell
+							stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
+							selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
+							colorCellIndex={4}
+							selectedColor={selectedColor}
+							defaultColor={"#615376"}
+						/>
+						<ColorCell
+							stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
+							selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
+							colorCellIndex={5}
+							selectedColor={selectedColor}
+							defaultColor={"#101624"}
+						/>
+						<ColorCell
+							stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
+							selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
+							colorCellIndex={6}
+							selectedColor={selectedColor}
+							defaultColor={"#351930"}
+						/>
+						<ColorCell
+							stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
+							selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
+							colorCellIndex={7}
+							selectedColor={selectedColor}
+							defaultColor={"#571c3c"}
+						/>
+						<ColorCell
+							stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
+							selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
+							colorCellIndex={8}
+							selectedColor={selectedColor}
+							defaultColor={"#7a1d49"}
+						/>
+						<ColorCell
+							stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
+							selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
+							colorCellIndex={9}
+							selectedColor={selectedColor}
+							defaultColor={"#9c2052"}
+						/>
+						<ColorCell
+							stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
+							selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
+							colorCellIndex={10}
+							selectedColor={selectedColor}
+							defaultColor={"#73c8a7"}
+						/>
+						<ColorCell
+							stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
+							selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
+							colorCellIndex={11}
+							selectedColor={selectedColor}
+							defaultColor={"#dee1b6"}
+						/>
+						<ColorCell
+							stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
+							selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
+							colorCellIndex={12}
+							selectedColor={selectedColor}
+							defaultColor={"#e1b866"}
+						/>
+						<ColorCell
+							stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
+							selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
+							colorCellIndex={13}
+							selectedColor={selectedColor}
+							defaultColor={"#bd5530"}
+						/>
+						<ColorCell
+							stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
+							selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
+							colorCellIndex={14}
+							selectedColor={selectedColor}
+							defaultColor={"#373b44"}
+						/>
+						<ColorCell
+							stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
+							selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
+							colorCellIndex={15}
+							selectedColor={selectedColor}
+							defaultColor={"#a70268"}
+						/>
+						<ColorCell
+							stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
+							selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
+							colorCellIndex={16}
+							selectedColor={selectedColor}
+							defaultColor={"#f10d4a"}
+						/>
+						<ColorCell
+							stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
+							selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
+							colorCellIndex={17}
+							selectedColor={selectedColor}
+							defaultColor={"#fc6b3f"}
+						/>
+						<ColorCell
+							stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
+							selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
+							colorCellIndex={18}
+							selectedColor={selectedColor}
+							defaultColor={"#f7d96b"}
+						/>
+						<ColorCell
+							stateSelectedColor={[stateSelectedColor, setStateSelectedColor]}
+							selectedColorCellState={[selectedColorCell, setSelectedColorCell]}
+							colorCellIndex={19}
+							selectedColor={selectedColor}
+							defaultColor={"#339193"}
+						/>
+					</div>
 				</div>
 			</div>
 		</div>

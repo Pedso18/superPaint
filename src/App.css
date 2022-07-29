@@ -35,38 +35,53 @@ html {
 	flex-direction: row;
 	display: flex;
 	flex-wrap: wrap;
-	padding: 18px;
 	box-sizing: border-box;
+	justify-content: center;
+	align-content: center;
+	overflow: hidden;
+}
+
+.makingColorsRound {
+	background-color: #33333a;
+	border-radius: 10px;
+	width: 210px;
+	height: 225px;
+	flex-direction: row;
+	display: flex;
+	flex-wrap: wrap;
+	box-sizing: border-box;
+	justify-content: center;
+	align-content: center;
+	overflow: hidden;
 }
 
 .colorCell {
 	background-color: aliceblue;
-	border-radius: 6px;
-	width: 32px;
-	height: 24px;
-	border-color: #4d4d57;
-	border-width: 3px;
-	border-style: solid;
-	margin: 5px 5px 2px 5px;
+	width: 40px;
+	height: 56px;
+	margin: 1px;
 	overflow: visible;
 	transform: scale(1);
+	z-index: 1;
 }
 
 .colorCell:hover {
 	transform: scale(1.1);
+	z-index: 10;
 }
 
 .selectedColorCellRing {
 	position: absolute;
-	left: -3px;
-	top: -3px;
-	width: 36px;
-	height: 28px;
+	left: 0px;
+	top: 0px;
+	width: 40px;
+	height: 56px;
 	background-color: rgba(0, 0, 0, 0);
 	border-color: aliceblue;
 	border-width: 1px;
 	border-style: solid;
-	border-radius: 6px;
+	box-sizing: border-box;
+	z-index: 10;
 }
 
 /* Custom layout */
