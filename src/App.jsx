@@ -33,6 +33,7 @@ function App() {
 					setShowGrid(!showGrid);
 				}
 			}}>
+			<div className='topBar'></div>
 			<Canvas
 				isMousePressed={isMousePressed}
 				showGrid={showGrid}
@@ -196,6 +197,11 @@ function App() {
 						/>
 					</div>
 				</div>
+			</div>
+
+			<div className='leftPanel'>
+				<div className='toolDiv'></div>
+				<div className='colorDiv'></div>
 			</div>
 		</div>
 	);

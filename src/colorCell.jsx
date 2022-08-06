@@ -61,9 +61,23 @@ export default function ColorCell(props) {
 			selected === false &&
 			props.selectedColorCellState[0] === props.colorCellIndex
 		) {
-			props.stateSelectedColor[1](myColor);
+			props.stateSelectedColor[1](hexToRgba(myColor));
 			props.selectedColor.current = myColor;
 			setSelected(true);
 		}
+	}
+
+	function hexToRgba(hex) {
+		if (typeof hex != "string") return hex;
+
+		hex = hex.substring(1);
+		var aRgbHex = hex.match(/.{1,2}/g);
+		var aRgb = {
+			r: parseInt(aRgbHex[0], 16),
+			g: parseInt(aRgbHex[1], 16),
+			b: parseInt(aRgbHex[2], 16),
+			a: 1,
+		};
+		return aRgb;
 	}
 }

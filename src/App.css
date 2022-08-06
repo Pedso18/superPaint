@@ -1,19 +1,50 @@
 html {
 	overflow: hidden;
 	background-color: #4d4d57;
+	--pixel-size: 40px;
 }
 
 .canvas {
 	position: absolute;
 	left: 50%;
-	top: 50%;
+	top: 52%;
 	transform: translate(-50%, -50%);
 	background-color: white;
+	background-image: url("../public/pngBackground.png");
+	background-size: var(--pixel-size);
+	background-position: 2px 2px;
+	z-index: 100;
+}
+
+.topBar {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 30px;
+	background-color: #33333a;
+	z-index: 10;
 }
 
 .rightPanel {
 	position: absolute;
 	right: 0px;
+	top: 0px;
+	width: 20%;
+	max-width: 300px;
+	height: 100%;
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	background-color: #393941;
+	-webkit-box-shadow: -2px 3px 14px 5px rgba(0, 0, 0, 0.84);
+	box-shadow: -2px 3px 14px 5px rgba(0, 0, 0, 0.84);
+	flex-direction: column;
+}
+
+.leftPanel {
+	position: absolute;
+	left: 0px;
 	top: 0px;
 	width: 20%;
 	max-width: 300px;
@@ -43,9 +74,9 @@ html {
 
 .makingColorsRound {
 	background-color: #33333a;
-	border-radius: 10px;
-	width: 210px;
-	height: 225px;
+	border-radius: 15px;
+	width: 205px;
+	height: 203px;
 	flex-direction: row;
 	display: flex;
 	flex-wrap: wrap;
@@ -57,12 +88,14 @@ html {
 
 .colorCell {
 	background-color: aliceblue;
-	width: 40px;
-	height: 56px;
-	margin: 1px;
+	width: 35px;
+	height: 35px;
+	margin: 10px 3px 10px 3px;
 	overflow: visible;
 	transform: scale(1);
 	z-index: 1;
+	-webkit-box-shadow: -2px 3px 14px 5px rgba(0, 0, 0, 0.84);
+	box-shadow: -2px 3px 14px 5px rgba(0, 0, 0, 0.1);
 }
 
 .colorCell:hover {
@@ -70,18 +103,70 @@ html {
 	z-index: 10;
 }
 
+.toolDiv {
+	position: relative;
+	background-color: #33333a;
+	width: 230px;
+	height: 230px;
+	border-radius: 12px;
+	margin-bottom: 10%;
+}
+
 .selectedColorCellRing {
 	position: absolute;
 	left: 0px;
 	top: 0px;
-	width: 40px;
-	height: 56px;
+	width: 35px;
+	height: 35px;
 	background-color: rgba(0, 0, 0, 0);
 	border-color: aliceblue;
 	border-width: 1px;
 	border-style: solid;
 	box-sizing: border-box;
 	z-index: 10;
+
+	animation-name: colorCellSelectedRingAnim;
+	animation-duration: 0.2s;
+}
+
+@keyframes colorCellSelectedRingAnim {
+	0% {
+		position: absolute;
+		border-radius: 50%;
+		opacity: 0.15;
+		background-color: aliceblue;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		width: 0%;
+		height: 0%;
+	}
+
+	99% {
+		position: absolute;
+		border-radius: 10%;
+		opacity: 0.35;
+		background-color: aliceblue;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		width: 100%;
+		height: 100%;
+	}
+
+	100% {
+		position: absolute;
+		left: 0px;
+		top: 0px;
+		width: 35px;
+		height: 35px;
+		background-color: rgba(0, 0, 0, 0);
+		border-color: aliceblue;
+		border-width: 1px;
+		border-style: solid;
+		box-sizing: border-box;
+		z-index: 10;
+	}
 }
 
 /* Custom layout */

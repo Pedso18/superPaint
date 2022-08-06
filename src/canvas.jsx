@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext } from "react";
 import { useState, useEffect, useRef } from "react";
 
 export default function Canvas(props) {
@@ -8,6 +8,8 @@ export default function Canvas(props) {
 	const canvasRef = useRef();
 	const globalPixelSize = useRef();
 	const isMousePressed = props.isMousePressed;
+
+	const [selectedTool, setSelectedTool] = useState(false);
 
 	useEffect(() => {
 		const canvas = canvasRef.current;
@@ -24,6 +26,7 @@ export default function Canvas(props) {
 			pixelSize -= 1;
 		}
 
+		document.documentElement.style.setProperty("--pixel-size", `${pixelSize}px`);
 		globalPixelSize.current = pixelSize;
 		canvas.width += 4;
 		canvas.height += 4;
@@ -39,7 +42,7 @@ export default function Canvas(props) {
 		for (let i = 0; i < gridSize[1]; i++) {
 			newGrid[i] = [];
 			for (let a = 0; a < gridSize[0]; a++) {
-				newGrid[i][a] = { color: { r: 255, g: 255, b: 255, a: 1 } };
+				newGrid[i][a] = { color: { r: 255, g: 255, b: 255, a: 0 } };
 			}
 		}
 
@@ -85,6 +88,8 @@ export default function Canvas(props) {
 		const ctx = canvas.getContext("2d");
 		ctx.imageSmoothingEnabled = false;
 
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+
 		ctx.fillStyle = "white";
 		ctx.stokeStyle = "#000";
 
@@ -101,12 +106,7 @@ export default function Canvas(props) {
 			for (let a = 0; a < gridSize[0]; a++) {
 				if (pixelGrid[i] && pixelGrid[i][a]) {
 					let pixelColor = pixelGrid[i][a].color;
-					ctx.fillStyle = rgbaToHex(
-						pixelColor.r,
-						pixelColor.g,
-						pixelColor.b,
-						pixelColor.a
-					);
+					ctx.fillStyle = rgbaToHex(pixelColor);
 					if (props.showGrid === true) {
 						fastFillRect(pixelSize * a + 2, pixelSize * i + 2, pixelSize, pixelSize);
 						fastStrokeRect(pixelSize * a + 2, pixelSize * i + 2, pixelSize, pixelSize);
@@ -120,65 +120,163 @@ export default function Canvas(props) {
 
 	return (
 		<canvas
-			onMouseDown={e => {
-				const target = e.target;
+			onMouseDown={selectedTool ? e => bucketPaint(e) : e => pencilPaint(e)}
+			className='canvas'
+			ref={canvasRef}
+			tabIndex={0}
+			onKeyUp={e => {
+				console.log(e.key.toLowerCase());
+				if (e.key.toLowerCase() == "p") {
+					setSelectedTool(!selectedTool);
+					console.log("changed tool");
+				}
+			}}></canvas>
+	);
 
-				// Get the bounding rectangle of target
-				const rect = target.getBoundingClientRect();
+	function pencilPaint(e) {
+		const target = e.target;
 
-				// Mouse position
-				const x = e.clientX - rect.left - globalPixelSize.current;
-				const y = e.clientY - rect.top - globalPixelSize.current;
+		// Get the bounding rectangle of target
+		const rect = target.getBoundingClientRect();
 
-				let arrX =
-					(x + globalPixelSize.current) / globalPixelSize.current -
-					(((x + globalPixelSize.current) / globalPixelSize.current) % 1);
-				let arrY =
-					(y + globalPixelSize.current) / globalPixelSize.current -
-					(((y + globalPixelSize.current) / globalPixelSize.current) % 1);
+		// Mouse position
+		const x = e.clientX - rect.left - globalPixelSize.current;
+		const y = e.clientY - rect.top - globalPixelSize.current;
 
-				let currentColor = props.selectedColor.current;
-				pixelGrid[arrY][arrX].color = {
-					r: currentColor.r,
-					g: currentColor.g,
-					b: currentColor.b,
-					a: currentColor.a,
-				};
+		let arrX =
+			(x + globalPixelSize.current) / globalPixelSize.current -
+			(((x + globalPixelSize.current) / globalPixelSize.current) % 1);
+		let arrY =
+			(y + globalPixelSize.current) / globalPixelSize.current -
+			(((y + globalPixelSize.current) / globalPixelSize.current) % 1);
+
+		pixelGrid[arrY][arrX].color = props.selectedColor.current;
+
+		const canvas = canvasRef.current;
+		const ctx = canvas.getContext("2d");
+		ctx.fillStyle = rgbaToHex(props.selectedColor.current);
+
+		ctx.clearRect(
+			globalPixelSize.current * arrX - 1 + 2,
+			globalPixelSize.current * arrY - 1 + 2,
+			globalPixelSize.current + 2,
+			globalPixelSize.current + 2
+		);
+
+		if (props.showGrid === true) {
+			fastFillRect(
+				globalPixelSize.current * arrX - 1 + 2,
+				globalPixelSize.current * arrY - 1 + 2,
+				globalPixelSize.current + 2,
+				globalPixelSize.current + 2
+			);
+			fastStrokeRect(
+				globalPixelSize.current * arrX - 1 + 2,
+				globalPixelSize.current * arrY - 1 + 2,
+				globalPixelSize.current + 2,
+				globalPixelSize.current + 2
+			);
+		} else {
+			fastFillRect(
+				globalPixelSize.current * arrX - 1 + 2,
+				globalPixelSize.current * arrY - 1 + 2,
+				globalPixelSize.current + 2,
+				globalPixelSize.current + 2
+			);
+		}
+	}
+
+	function bucketPaint(e) {
+		const target = e.target;
+
+		// Get the bounding rectangle of target
+		const rect = target.getBoundingClientRect();
+
+		// Mouse position
+		const x = e.clientX - rect.left - globalPixelSize.current;
+		const y = e.clientY - rect.top - globalPixelSize.current;
+
+		let arrX =
+			(x + globalPixelSize.current) / globalPixelSize.current -
+			(((x + globalPixelSize.current) / globalPixelSize.current) % 1);
+		let arrY =
+			(y + globalPixelSize.current) / globalPixelSize.current -
+			(((y + globalPixelSize.current) / globalPixelSize.current) % 1);
+
+		const targetColor = pixelGrid[arrY][arrX].color;
+
+		const paintFunc = (x, y) => {
+			if (
+				JSON.stringify(targetColor) !== JSON.stringify(props.selectedColor.current)
+			) {
+				pixelGrid[y][x].color = props.selectedColor.current;
 
 				const canvas = canvasRef.current;
 				const ctx = canvas.getContext("2d");
-				ctx.fillStyle = rgbaToHex(
-					currentColor.r,
-					currentColor.g,
-					currentColor.b,
-					currentColor.a
+				ctx.fillStyle = rgbaToHex(props.selectedColor.current);
+
+				ctx.clearRect(
+					globalPixelSize.current * x + 2,
+					globalPixelSize.current * y + 2,
+					globalPixelSize.current,
+					globalPixelSize.current
 				);
 
 				if (props.showGrid === true) {
 					fastFillRect(
-						globalPixelSize.current * arrX - 1 + 2,
-						globalPixelSize.current * arrY - 1 + 2,
-						globalPixelSize.current + 2,
-						globalPixelSize.current + 2
+						globalPixelSize.current * x + 2,
+						globalPixelSize.current * y + 2,
+						globalPixelSize.current,
+						globalPixelSize.current
 					);
 					fastStrokeRect(
-						globalPixelSize.current * arrX - 1 + 2,
-						globalPixelSize.current * arrY - 1 + 2,
-						globalPixelSize.current + 2,
-						globalPixelSize.current + 2
+						globalPixelSize.current * x + 2,
+						globalPixelSize.current * y + 2,
+						globalPixelSize.current,
+						globalPixelSize.current
 					);
 				} else {
 					fastFillRect(
-						globalPixelSize.current * arrX - 1 + 2,
-						globalPixelSize.current * arrY - 1 + 2,
-						globalPixelSize.current + 2,
-						globalPixelSize.current + 2
+						globalPixelSize.current * x + 2,
+						globalPixelSize.current * y + 2,
+						globalPixelSize.current,
+						globalPixelSize.current
 					);
 				}
-			}}
-			className='canvas'
-			ref={canvasRef}></canvas>
-	);
+
+				if (
+					pixelGrid[y - 1] &&
+					pixelGrid[y - 1][x] &&
+					JSON.stringify(pixelGrid[y - 1][x].color) === JSON.stringify(targetColor)
+				) {
+					paintFunc(x, y - 1);
+				}
+				if (
+					pixelGrid[y + 1] &&
+					pixelGrid[y + 1][x] &&
+					JSON.stringify(pixelGrid[y + 1][x].color) === JSON.stringify(targetColor)
+				) {
+					paintFunc(x, y + 1);
+				}
+				if (
+					pixelGrid[y] &&
+					pixelGrid[y][x + 1] &&
+					JSON.stringify(pixelGrid[y][x + 1].color) === JSON.stringify(targetColor)
+				) {
+					paintFunc(x + 1, y);
+				}
+				if (
+					pixelGrid[y] &&
+					pixelGrid[y][x - 1] &&
+					JSON.stringify(pixelGrid[y][x - 1].color) === JSON.stringify(targetColor)
+				) {
+					paintFunc(x - 1, y);
+				}
+			}
+		};
+
+		paintFunc(arrX, arrY);
+	}
 
 	function handleMouseMove(e, pixelSize, ctx) {
 		const target = e.target;
@@ -193,8 +291,8 @@ export default function Canvas(props) {
 		let arrX = (x + pixelSize) / pixelSize - (((x + pixelSize) / pixelSize) % 1);
 		let arrY = (y + pixelSize) / pixelSize - (((y + pixelSize) / pixelSize) % 1);
 
-		ctx.fillStyle = "white";
-		fastFillRect(
+		ctx.fillStyle = "#ffffff";
+		ctx.clearRect(
 			(arrX - 2) * pixelSize + 2,
 			(arrY - 2) * pixelSize + 2,
 			pixelSize * 5,
@@ -202,19 +300,13 @@ export default function Canvas(props) {
 		);
 
 		ctx.stokeStyle = "black";
-		fastStrokeRect(2, 2, pixelSize * gridSize[0], pixelSize * gridSize[1]);
 
 		for (let a = arrX - 2; a < arrX + 3; a++) {
 			for (let i = arrY - 2; i < arrY + 3; i++) {
 				if (pixelGrid[i] && pixelGrid[i][a]) {
 					if (!(arrX === a && arrY === i)) {
 						let pixelColor = pixelGrid[i][a].color;
-						ctx.fillStyle = rgbaToHex(
-							pixelColor.r,
-							pixelColor.g,
-							pixelColor.b,
-							pixelColor.a
-						);
+						ctx.fillStyle = rgbaToHex(pixelColor);
 
 						if (props.showGrid === true) {
 							fastFillRect(pixelSize * a + 2, pixelSize * i + 2, pixelSize, pixelSize);
@@ -229,21 +321,10 @@ export default function Canvas(props) {
 
 		if (pixelGrid[arrY] && pixelGrid[arrY][arrX]) {
 			let pixelColor = pixelGrid[arrY][arrX].color;
-			ctx.fillStyle = rgbaToHex(
-				pixelColor.r,
-				pixelColor.g,
-				pixelColor.b,
-				pixelColor.a
-			);
+			ctx.fillStyle = rgbaToHex(pixelColor);
 
 			if (isMousePressed.current) {
-				let currentColor = props.selectedColor.current;
-				pixelGrid[arrY][arrX].color = {
-					r: currentColor.r,
-					g: currentColor.g,
-					b: currentColor.b,
-					a: currentColor.a,
-				};
+				pixelGrid[arrY][arrX].color = props.selectedColor.current;
 			}
 
 			if (props.showGrid === true) {
@@ -287,7 +368,16 @@ export default function Canvas(props) {
 		ctx.closePath();
 	}
 
-	function rgbaToHex(r, g, b, a) {
+	function rgbaToHex(clr) {
+		if (typeof clr === "string" && clr[0] === "#") {
+			return clr;
+		}
+
+		let r = clr.r;
+		let g = clr.g;
+		let b = clr.b;
+		let a = clr.a;
+
 		r = r.toString(16);
 		g = g.toString(16);
 		b = b.toString(16);
